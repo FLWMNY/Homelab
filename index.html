@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hallo!</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      font-family: system-ui, sans-serif;
+      background: #f4f4f5;
+      color: #18181b;
+    }
+    h1 { font-size: 3rem; margin: 0; }
+    button {
+      font-size: 1.2rem;
+      padding: 14px 28px;
+      border: none;
+      border-radius: 12px;
+      color: white;
+      background: #2563eb;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+  </style>
+</head>
+<body>
+  <h1>Hallo! 👋</h1>
+  <button id="knop">Klik op mij</button>
+
+  <script>
+    // De kleuren waar de knop doorheen wisselt
+    const kleuren = ["#2563eb", "#dc2626", "#16a34a", "#9333ea", "#ea580c"];
+    let nummer = 0;
+
+    document.getElementById("knop").addEventListener("click", function () {
+      nummer = (nummer + 1) % kleuren.length;
+      this.style.background = kleuren[nummer];
+    });
+  </script>
+</body>
+</html>
