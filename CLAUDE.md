@@ -15,3 +15,5 @@ A beginner's first practice project: small, self-contained web pages (plain HTML
 
 - Git is installed at `C:\Program Files\Git\cmd\git.exe`. If `git` is not on PATH in the shell (e.g. the app was not restarted after installing), call it by that full path.
 - Default branch is `main`; author name/email are set in this repo's local config.
+- Remote `origin` is the private repo https://github.com/FLWMNY/Homelab (login via Git Credential Manager). Push after committing.
+- The project lives on `D:\Claude`, which does not record file ownership; it is trusted via a global `safe.directory` entry for `D:/Claude/*`.
