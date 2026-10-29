@@ -1,0 +1,25 @@
+---
+services:
+
+###############################
+# PLEX
+###############################
+
+  plex:
+    image: lscr.io/linuxserver/plex:latest
+    container_name: plex
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - VERSION=docker
+    volumes:
+      - /mnt/appdata/plex:/config
+      - /mnt/media/series:/series
+      - /mnt/media/movies:/movies
+    restart: unless-stopped
+
+networks:
+  servarr:
+    external: true

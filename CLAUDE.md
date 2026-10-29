@@ -6,6 +6,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 A beginner's first practice project: small, self-contained web pages (plain HTML/CSS/JS, no build step, no dependencies). Open an `.html` file directly in a browser to run it.
 
+This repo is also the logbook of the owner's homelab (Proxmox mini-pc): `inventaris.md` (what runs where), `notities.md` (what was done, problems and fixes, with dates) and `diensten/<naam>/docker-compose.yml`. Never commit passwords or keys; they belong in `.env` (gitignored).
+
 ## Working with the owner
 
 - The owner is new to AI and programming and writes in Dutch. Reply in Dutch, in plain language, and explain what each step does and why.
