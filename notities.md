@@ -116,3 +116,9 @@
 - Gevolgen: Plex buiten de deur gaat via de Plex-relay (nog niet nodig). Dreame en Reolink werken via hun eigen cloud. Torrents kunnen trager zijn.
 - Tip voor later: UPnP ook uitzetten in de Reolink-app (Netwerk → Geavanceerd).
 - Wens: Home Assistant buiten de deur gebruiken → via Tailscale, zonder open poorten.
+
+**Uitgesteld (op verzoek van de eigenaar), voor later:**
+- Stap 3: tweestapsverificatie (TOTP) op Proxmox voor `root@pam`, en nagaan of `flow@pve` nog nodig is.
+- Stap 4: gastenwifi voor bezoek en slimme apparaten (Dreame, Reolink).
+- Stap 5: `rpcbind` (poort 111) uitzetten.
+- Tailscale, voor Home Assistant buiten de deur.
