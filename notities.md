@@ -107,3 +107,12 @@
   - Home Assistant: MQTT-integratie opnieuw ingesteld met gebruiker `homeassistant`.
   - Getest: Zigbee2MQTT en Home Assistant loggen in met hun eigen gebruiker, een anonieme login wordt geweigerd (code 5), en alle 25 lampen zijn bereikbaar in HA.
   - Terugzetten: `cp -a /root/backup-2026-10-30/mosquitto/. /etc/mosquitto/ && rm /etc/mosquitto/conf.d/wachtwoorden.conf && systemctl restart mosquitto` (in LXC 100).
+
+## 2026-10-30 (avond): beveiliging stap 2, UPnP uit
+
+- Netwerk: Odido-router (Zyxel) op 192.168.1.1 is de router; de Deco-mesh geeft alleen wifi door (access point).
+- De apparaten op .150/.151 met "Ty-UDP"-poorten zijn de Dreame-robotstofzuiger en de Reolink-deurbel/hub (wifi). Zigbee-sensoren hebben geen IP-adres. Poort 6881 (PCP) was het torrentprogramma op de laptop.
+- De eigenaar heeft **UPnP** en **UPnP NAT-T** uitgezet in de Odido-router. Gecontroleerd: de router antwoordt niet meer op UPnP, dus de automatisch opengezette poorten zijn weg. Plex, Home Assistant en Overseerr werken thuis gewoon.
+- Gevolgen: Plex buiten de deur gaat via de Plex-relay (nog niet nodig). Dreame en Reolink werken via hun eigen cloud. Torrents kunnen trager zijn.
+- Tip voor later: UPnP ook uitzetten in de Reolink-app (Netwerk → Geavanceerd).
+- Wens: Home Assistant buiten de deur gebruiken → via Tailscale, zonder open poorten.
