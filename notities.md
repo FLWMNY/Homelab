@@ -29,10 +29,16 @@
 - Oplossing: beide regels uit het Docker-bestand gehaald (ook de spatie bij `TZ=`). Het wachtwoord staat nu alleen in NZBGet zelf (Settings → Security, bewaard in `nzbget.conf`) en is veranderd. Radarr en Sonarr zijn bijgewerkt; de "Test" van de download client slaagt in allebei.
 - Reservekopie van het oude bestand (met het oude wachtwoord): `/root/docker-compose.yaml.bak-2026-10-30` in LXC 202. Opruimen zodra alles een tijdje goed werkt.
 
+**Prowlarr gekoppeld aan Radarr en Sonarr**
+- In Prowlarr → Settings → Apps: Radarr (`http://radarr:7878`) en Sonarr (`http://sonarr:8989`) toegevoegd, met Prowlarr-adres `http://prowlarr:9696` en "Full Sync".
+- Het doorzetten van NZBPlanet lukte nog niet: NZBPlanet gaf `429 Too Many Requests` (daglimiet van het gratis account). Prowlarr probeert het vanzelf opnieuw.
+- Daarna de oude losse zoekbronnen weghalen: "NZBPlanet" in Radarr en "Newznab" in Sonarr. Anders zoekt alles dubbel en is de limiet nog sneller op.
+- Status: Newshosting-abonnement actief. NZBPlanet is een gratis account (geen VIP). Plex: lifetime Plex Pass.
+
 ## Nog te doen
 1. Opslag van Zigbee (100) vergroten van 4 naar 8 GB.
 2. Automatische back-ups instellen, plus een kopie op een tweede plek.
 3. Beveiliging: `lxc.cgroup2.devices.allow: a` en de USB-regels weghalen bij 100 (de stick zit via het netwerk). Rechten van 202 inperken (apparmor `unconfined`). SSH alleen met sleutel. Vaste IP-adressen voor HA en Zigbee.
 4. Een download van begin tot eind testen (Radarr → NZBGet → Plex).
-5. Later: upgrade naar Proxmox 9 (ondersteuning voor 8 loopt af), Radarr instellen op 4K WEB-DL, eventueel Jellyfin.
+5. Later: upgrade naar Proxmox 9 (ondersteuning voor 8 loopt af), Radarr instellen op 4K WEB-DL, apps bijwerken, Overseerr en Bazarr instellen, Plex de videochip laten gebruiken (kan met Plex Pass), Tailscale.
 6. Oude back-up van 202 uit juni 2025 opruimen.
