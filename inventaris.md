@@ -26,7 +26,7 @@ Laatst bijgewerkt: 2026-10-30
 |---|---|---|---|---|---|---|---|
 | 101 | home-assistant | VM (Home Assistant OS) | 192.168.1.184 (DHCP) | 2 | 6 GB | 32 GB | ja |
 | 100 | zigbee2mqtt | LXC (Debian) | 192.168.1.58 (DHCP) | 2 | 1 GB | 8 GB (30% vol) | ja |
-| 202 | servarr | LXC (Ubuntu 22.04 + Docker) | 192.168.1.202 (vast) | 6 | 2 GB | 24 GB | ja |
+| 202 | servarr | LXC (Ubuntu 22.04 + Docker, privileged, videochip doorgegeven) | 192.168.1.202 (vast) | 6 | 2 GB | 24 GB | ja |
 
 ## Diensten
 

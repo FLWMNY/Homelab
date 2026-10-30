@@ -48,7 +48,11 @@
 3. Beveiliging:
    - ~~A. Zigbee (100): overbodige rechten weghalen.~~ Gedaan op 2026-10-30: `lxc.cgroup2.devices.allow`-regels, de lege `lxc.cap.drop:` en de USB-`lxc.mount.entry`-regels verwijderd. Zigbee2MQTT maakt na de herstart gewoon verbinding met de stick via het netwerk. Oude config: `/root/lxc-100.conf.bak-2026-10-30` op de host.
    - ~~B. SSH alleen met sleutel.~~ Gedaan op 2026-10-30: `/etc/ssh/sshd_config.d/10-alleen-sleutel.conf` (`PermitRootLogin prohibit-password`, `PasswordAuthentication no`). Getest: de sleutel werkt, een wachtwoord wordt geweigerd. De Proxmox-webpagina en de Shell daarin werken nog met je wachtwoord. Een nieuw apparaat toegang geven: de publieke sleutel via de webpagina-Shell toevoegen aan `/root/.ssh/authorized_keys`.
-   - **C. servarr (202): rechten inperken** (`lxc.apparmor.profile: unconfined`, `devices.allow: a`, lege `cap.drop`) en alleen `/dev/dri` doorgeven voor Plex-hardwaretranscoding (Plex Pass). Samen doen, met de back-up bij de hand en daarna een test van Docker.
+   - ~~C. servarr (202): rechten inperken en videochip doorgeven.~~ Gedaan op 2026-10-30:
+     - `lxc.cgroup2.devices.allow: a` en de lege `lxc.cap.drop:` verwijderd. Nu alleen `dev0: /dev/dri/renderD128,gid=108` en `dev1: /dev/dri/card0,gid=44`.
+     - `lxc.apparmor.profile: unconfined` moest **terug**: zonder die regel kan Docker in deze *privileged* container zijn eigen AppArmor-profiel niet laden ("attempted to load a profile while confined"), en start geen enkele container. De echte oplossing is later servarr omzetten naar een *unprivileged* container (back-up terugzetten als unprivileged, en de rechten van de mappen aanpassen). Dat is een grotere klus.
+     - Plex: `devices: - /dev/dri:/dev/dri` in het Docker-bestand. De container ziet de chip en zet hem zelf in de juiste groep. Of Plex de AMD-chip ook echt gebruikt, blijkt pas bij een afspeeltest.
+     - Reservekopieën: `/root/lxc-202.conf.bak-2026-10-30` (host) en `docker-compose.yaml.bak-2026-10-30-gpu` (in `/mnt/appdata/plexyaml`).
    - D. Vaste IP-adressen: volgens de eigenaar al ingesteld in de router (DHCP-reservering). Zigbee hield 192.168.1.58 na een herstart. Controleren in de router als dat zo uitkomt.
 4. ~~Een download van begin tot eind testen.~~ Geslaagd op 2026-10-30 (zie hierboven).
 5. Later: upgrade naar Proxmox 9 (ondersteuning voor 8 loopt af), Radarr instellen op 4K WEB-DL, apps bijwerken, Bazarr instellen, Plex de videochip laten gebruiken (kan met Plex Pass), Tailscale.

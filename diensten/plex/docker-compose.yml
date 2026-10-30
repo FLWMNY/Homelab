@@ -14,6 +14,8 @@ services:
       - PGID=1000
       - TZ=Etc/UTC
       - VERSION=docker
+    devices:
+      - /dev/dri:/dev/dri
     volumes:
       - /mnt/appdata/plex:/config
       - /mnt/media/series:/series
