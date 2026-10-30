@@ -96,3 +96,14 @@
 - **Mosquitto (MQTT)** met `allow_anonymous true` (lampen en schakelaars aansturen).
 - Proxmox-webpagina met alleen een wachtwoord, zonder tweestapsverificatie (gebruikers `root@pam` en `flow@pve`). De Proxmox-firewall staat uit. `rpcbind` (poort 111) staat aan maar is niet nodig.
 - In orde: SSH alleen met sleutel; Radarr, Prowlarr (formulier), Sonarr (Basic), NZBGet, Overseerr, Plex en Home Assistant vragen om in te loggen.
+
+## 2026-10-30 (avond): beveiliging stap 1, wachtwoorden op apps
+
+- **Bazarr**: login aangezet door de eigenaar (Settings → **Application** → Security → Authentication: Form). In de nieuwe versie heet "General" nu "Application". Gecontroleerd: zonder login krijg je 401.
+- **Zigbee2MQTT-webpagina**: auth token ingesteld door de eigenaar. Daarna Zigbee2MQTT herstart, anders werkt het niet.
+- **Mosquitto (MQTT)**: reservekopie in LXC 100 `/root/backup-2026-10-30/` (map `mosquitto` + Zigbee2MQTT `configuration.yaml`).
+  - `/etc/mosquitto/passwd` met de gebruikers `addons` (Zigbee2MQTT, hetzelfde wachtwoord als in zijn `configuration.yaml`) en `homeassistant` (nieuw; het wachtwoord staat in `.env` op de laptop als `MQTT_HA_PASSWORD`).
+  - `/etc/mosquitto/conf.d/wachtwoorden.conf` met `password_file`, en `allow_anonymous false` in `mosquitto.conf`.
+  - Home Assistant: MQTT-integratie opnieuw ingesteld met gebruiker `homeassistant`.
+  - Getest: Zigbee2MQTT en Home Assistant loggen in met hun eigen gebruiker, een anonieme login wordt geweigerd (code 5), en alle 25 lampen zijn bereikbaar in HA.
+  - Terugzetten: `cp -a /root/backup-2026-10-30/mosquitto/. /etc/mosquitto/ && rm /etc/mosquitto/conf.d/wachtwoorden.conf && systemctl restart mosquitto` (in LXC 100).
