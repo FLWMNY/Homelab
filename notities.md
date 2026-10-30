@@ -24,9 +24,13 @@
 - Gedaan: 6 kernen. Advies: kwaliteit in de app op "Origineel", de tv via een kabel aansluiten.
 - De videochip (`/dev/dri`) gebruiken kan alleen met Plex Pass, of gratis met Jellyfin.
 
+**Probleem: NZBGet startte toch niet (en wachtwoord stond leesbaar)**
+- Oorzaak: een spatie na `=` in `NZBGET_USER= ...` en `NZBGET_PASS= ...`. Het startscript maakte daar losse woorden van, waardoor NZBGet alleen zijn hulptekst liet zien.
+- Oplossing: beide regels uit het Docker-bestand gehaald (ook de spatie bij `TZ=`). Het wachtwoord staat nu alleen in NZBGet zelf (Settings → Security, bewaard in `nzbget.conf`) en is veranderd. Radarr en Sonarr zijn bijgewerkt; de "Test" van de download client slaagt in allebei.
+- Reservekopie van het oude bestand (met het oude wachtwoord): `/root/docker-compose.yaml.bak-2026-10-30` in LXC 202. Opruimen zodra alles een tijdje goed werkt.
+
 ## Nog te doen
-1. NZBGet-wachtwoord veranderen. Het staat leesbaar in het Docker-bestand op de server: verplaatsen naar `.env`.
-2. Opslag van Zigbee (100) vergroten van 4 naar 8 GB.
+1. Opslag van Zigbee (100) vergroten van 4 naar 8 GB.
 3. Automatische back-ups instellen, plus een kopie op een tweede plek.
 4. Beveiliging: `lxc.cgroup2.devices.allow: a` en de USB-regels weghalen bij 100 (de stick zit via het netwerk). Rechten van 202 inperken (apparmor `unconfined`). SSH alleen met sleutel. Vaste IP-adressen voor HA en Zigbee.
 5. Een download van begin tot eind testen (Radarr → NZBGet → Plex).

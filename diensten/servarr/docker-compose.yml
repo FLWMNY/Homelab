@@ -115,9 +115,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ= Europe/Amsterdam
-      - NZBGET_USER= FLWMNY #optional
-      - NZBGET_PASS=<VERBORGEN: staat alleen op de server, wordt nog naar .env verplaatst>
+      - TZ=Europe/Amsterdam
     volumes:
       - /mnt/appdata/nzbget/config:/config
       - /mnt/downloads:/downloads #optional
