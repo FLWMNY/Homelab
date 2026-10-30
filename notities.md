@@ -48,7 +48,7 @@
 **Afspelen op de telefoon (Samsung S24 Ultra)**
 - Op de laptop (browser) speelt alles goed af. De server is dus in orde.
 - Met kwaliteit "Origineel" kreeg de telefoon de volle 4K-remux (~60 MB per stukje): te veel voor de wifi. Advies: tv op "Origineel", telefoon op 1080p of "Automatisch".
-- Ook Spider-Man (1080p HEVC 10-bit, ~2,5 Mbps) bleef hangen: Plex stuurt de video ongewijzigd door (direct stream), en de speler in de Plex-app loopt daarop vast. Volgende stap: in de app "Direct Play" en "Direct Stream" uitzetten, zodat de server altijd naar H.264 omzet.
+- Ook Spider-Man (1080p HEVC 10-bit, ~2,5 Mbps) bleef hangen op de telefoon, ook met "Direct Play" en "Direct Stream" uit (de server zette hem toen wél vlot om naar H.264). Waarschijnlijke oorzaak: de telefoon zat in het tuinhuis op een draadloze Deco zonder kabel. Nog te testen in huis. Kijken op de telefoon heeft geen prioriteit; aanvragen via Overseerr werkt wel.
 
 **Apps bijgewerkt (2026-10-30)**
 - Eerst een back-up van alle instellingen: `/mnt/nvme1n1/backups/appdata/appdata-2026-10-30-voor-update.tar.gz` (46 MB, zonder Plex-cache). Terugzetten: apps stoppen, de map `appdata` uitpakken over `/mnt/nvme1n1/servarr/`, en weer starten.
