@@ -36,7 +36,7 @@
 - Status: Newshosting-abonnement actief. NZBPlanet is een gratis account (geen VIP). Plex: lifetime Plex Pass.
 
 ## Nog te doen
-1. Opslag van Zigbee (100) vergroten van 4 naar 8 GB.
+1. ~~Opslag van Zigbee (100) vergroten van 4 naar 8 GB.~~ Gedaan op 2026-10-30 (`pct resize 100 rootfs +4G`, nu 30% vol).
 2. Automatische back-ups instellen, plus een kopie op een tweede plek.
 3. Beveiliging: `lxc.cgroup2.devices.allow: a` en de USB-regels weghalen bij 100 (de stick zit via het netwerk). Rechten van 202 inperken (apparmor `unconfined`). SSH alleen met sleutel. Vaste IP-adressen voor HA en Zigbee.
 4. Een download van begin tot eind testen (Radarr → NZBGet → Plex).
