@@ -31,8 +31,8 @@
 
 ## Nog te doen
 1. Opslag van Zigbee (100) vergroten van 4 naar 8 GB.
-3. Automatische back-ups instellen, plus een kopie op een tweede plek.
-4. Beveiliging: `lxc.cgroup2.devices.allow: a` en de USB-regels weghalen bij 100 (de stick zit via het netwerk). Rechten van 202 inperken (apparmor `unconfined`). SSH alleen met sleutel. Vaste IP-adressen voor HA en Zigbee.
-5. Een download van begin tot eind testen (Radarr → NZBGet → Plex).
-6. Later: upgrade naar Proxmox 9 (ondersteuning voor 8 loopt af), Radarr instellen op 4K WEB-DL, eventueel Jellyfin.
-7. Oude back-up van 202 uit juni 2025 opruimen.
+2. Automatische back-ups instellen, plus een kopie op een tweede plek.
+3. Beveiliging: `lxc.cgroup2.devices.allow: a` en de USB-regels weghalen bij 100 (de stick zit via het netwerk). Rechten van 202 inperken (apparmor `unconfined`). SSH alleen met sleutel. Vaste IP-adressen voor HA en Zigbee.
+4. Een download van begin tot eind testen (Radarr → NZBGet → Plex).
+5. Later: upgrade naar Proxmox 9 (ondersteuning voor 8 loopt af), Radarr instellen op 4K WEB-DL, eventueel Jellyfin.
+6. Oude back-up van 202 uit juni 2025 opruimen.
