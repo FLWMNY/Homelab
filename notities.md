@@ -82,3 +82,17 @@
   - Gratis bronnen zonder account: podnapisi, gestdown, yifysubtitles, embeddedsubtitles.
 - Test: Black Panther en Spider-Man hebben al **ingebouwde** NL- en EN-ondertitels in het `.mkv`-bestand. Bazarr ziet dat en hoeft niets te downloaden. Bij nieuwe films zonder ingebouwde ondertitels zoekt Bazarr zelf.
 - OpenSubtitles.com toegevoegd door de eigenaar (zelf de inlog ingevuld). Bazarr meldt de status "Good".
+
+## 2026-10-30 (avond): beveiligingscontrole (alleen gekeken, niets veranderd)
+
+**Van buitenaf (internet)**: geen beheerpagina's open. Wel staat UPnP aan op de router (192.168.1.1), en daarmee zijn automatisch 18 poorten opengezet:
+- 24467/TCP → 192.168.1.202:32400 (Plex, voor kijken buiten de deur).
+- 6881/TCP+UDP → 192.168.1.29 (de laptop; 6881 is de klassieke poort van een torrentprogramma).
+- 15× UDP → 192.168.1.150 en .151 ("Ty-…", waarschijnlijk Tuya-slimme-apparaten zoals camera's of stekkers).
+
+**Binnen het thuisnetwerk**: wie op de wifi zit (gasten, of een gehackt slim apparaat) kan bij:
+- **Bazarr** zonder wachtwoord (toont onder meer de API-sleutels van Radarr en Sonarr).
+- **Zigbee2MQTT-webpagina** (192.168.1.58:8080) zonder wachtwoord (apparaten koppelen of verwijderen).
+- **Mosquitto (MQTT)** met `allow_anonymous true` (lampen en schakelaars aansturen).
+- Proxmox-webpagina met alleen een wachtwoord, zonder tweestapsverificatie (gebruikers `root@pam` en `flow@pve`). De Proxmox-firewall staat uit. `rpcbind` (poort 111) staat aan maar is niet nodig.
+- In orde: SSH alleen met sleutel; Radarr, Prowlarr (formulier), Sonarr (Basic), NZBGet, Overseerr, Plex en Home Assistant vragen om in te loggen.
