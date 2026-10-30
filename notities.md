@@ -81,4 +81,4 @@
   - Talen: Nederlands en Engels. Profiel "Nederlands + Engels" (allebei downloaden), standaard voor alle films en series.
   - Gratis bronnen zonder account: podnapisi, gestdown, yifysubtitles, embeddedsubtitles.
 - Test: Black Panther en Spider-Man hebben al **ingebouwde** NL- en EN-ondertitels in het `.mkv`-bestand. Bazarr ziet dat en hoeft niets te downloaden. Bij nieuwe films zonder ingebouwde ondertitels zoekt Bazarr zelf.
-- Nog te doen (eigenaar): een gratis account bij OpenSubtitles.com maken en de inlog zelf invullen in Bazarr → Settings → Providers → OpenSubtitles.com. Dat is de grootste bron.
+- OpenSubtitles.com toegevoegd door de eigenaar (zelf de inlog ingevuld). Bazarr meldt de status "Good".
