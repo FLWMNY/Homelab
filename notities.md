@@ -42,6 +42,21 @@
 - Eindtest: "Spider-Man: Brand New Day" aangevraagd in Overseerr → Radarr pakte binnen enkele seconden een 1080p-release van 2,6 GB → NZBGet → geïmporteerd naar `/movies/Spider-Man - Brand New Day (2026)` → Plex scande de map meteen. De hele keten duurde ongeveer 2 minuten.
 - Let op: fanfilms en video's zonder releasedatum (zoals "If Saitama Was in Jujutsu Kaisen") worden niet gezocht, omdat Radarr alleen uitgebrachte films zoekt. Die aanvraag is weer verwijderd uit Overseerr en Radarr.
 
+**Videochip voor Plex: werkt niet (AMD)**
+- Met `/dev/dri` in de Plex-container meldt Plex: "hardware transcoding: enabled, but no hardware decode accelerator found". De AMD Radeon (Barcelo) wordt door Plex niet gebruikt, en het omzetten bleef hangen. Daarom is `/dev/dri` weer uit het Plex-bestand gehaald. De chip wordt nog wel aan LXC 202 doorgegeven (`dev0`/`dev1`), voor als we later Jellyfin proberen (dat ondersteunt AMD/VAAPI wel).
+
+**Afspelen op de telefoon (Samsung S24 Ultra)**
+- Op de laptop (browser) speelt alles goed af. De server is dus in orde.
+- Met kwaliteit "Origineel" kreeg de telefoon de volle 4K-remux (~60 MB per stukje): te veel voor de wifi. Advies: tv op "Origineel", telefoon op 1080p of "Automatisch".
+- Ook Spider-Man (1080p HEVC 10-bit, ~2,5 Mbps) bleef hangen: Plex stuurt de video ongewijzigd door (direct stream), en de speler in de Plex-app loopt daarop vast. Volgende stap: in de app "Direct Play" en "Direct Stream" uitzetten, zodat de server altijd naar H.264 omzet.
+
+**Apps bijgewerkt (2026-10-30)**
+- Eerst een back-up van alle instellingen: `/mnt/nvme1n1/backups/appdata/appdata-2026-10-30-voor-update.tar.gz` (46 MB, zonder Plex-cache). Terugzetten: apps stoppen, de map `appdata` uitpakken over `/mnt/nvme1n1/servarr/`, en weer starten.
+- `docker compose pull` + `up -d` in `/mnt/appdata/yaml` en `/mnt/appdata/plexyaml`, daarna `docker image prune -f` (2,1 GB vrijgemaakt).
+- Nieuwe versies: Radarr 5.25 → **6.4.4**, Prowlarr 1.37 → **2.7.0**, Sonarr 4.0.14 → **4.0.20**, Overseerr 1.34 → **1.35.0**, Plex 1.41.7 → **1.43.5**. Bazarr en NZBGet naar de nieuwste versie.
+- Getest: geen meldingen, en de zoekbron- en downloadtests slagen in Radarr en Sonarr.
+- Updaten in het vervolg: dezelfde twee commando's, met eerst een back-up van `appdata`. Die zit niet in de wekelijkse Proxmox-back-up.
+
 ## Nog te doen
 1. ~~Opslag van Zigbee (100) vergroten van 4 naar 8 GB.~~ Gedaan op 2026-10-30 (`pct resize 100 rootfs +4G`, nu 30% vol).
 2. ~~Automatische back-ups instellen.~~ Gedaan op 2026-10-30: opslag `backup2tb` op de 2 TB-schijf (met `is_mountpoint`, zodat er nooit naar een lege map wordt geschreven als de schijf mist) en een taak elke zondag om 03:00, de laatste 4 bewaard. Nog te doen: een kopie buiten huis (USB-schijf of cloud), en de back-ups van Home Assistant zelf naar bijvoorbeeld Google Drive.
@@ -55,6 +70,6 @@
      - Reservekopieën: `/root/lxc-202.conf.bak-2026-10-30` (host) en `docker-compose.yaml.bak-2026-10-30-gpu` (in `/mnt/appdata/plexyaml`).
    - D. Vaste IP-adressen: volgens de eigenaar al ingesteld in de router (DHCP-reservering). Zigbee hield 192.168.1.58 na een herstart. Controleren in de router als dat zo uitkomt.
 4. ~~Een download van begin tot eind testen.~~ Geslaagd op 2026-10-30 (zie hierboven).
-5. Later: upgrade naar Proxmox 9 (ondersteuning voor 8 loopt af), Radarr instellen op 4K WEB-DL, apps bijwerken, Bazarr instellen, Plex de videochip laten gebruiken (kan met Plex Pass), Tailscale.
+5. Later: upgrade naar Proxmox 9 (ondersteuning voor 8 loopt af), Radarr instellen op 4K WEB-DL, Bazarr instellen, eventueel Jellyfin naast Plex (AMD-videochip werkt daar wel), servarr omzetten naar unprivileged (dan kan AppArmor aan), Tailscale, `appdata` meenemen in de automatische back-up.
 6. Oude back-up van 202 uit juni 2025 opruimen.
 7. Later, in een aparte Home Assistant-sessie (toegang via `HA_TOKEN` in `.env`): kapotte dashboardkaarten opruimen ("Mobile IOS" verwijst naar 5 verdwenen automatiseringen, "OLD Mobile" naar 4 verdwenen lampen), het lege tabblad "Verdiepingen", 86 onbeschikbare entiteiten doorlopen, tikfout "auromatisering".
