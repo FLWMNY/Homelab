@@ -42,7 +42,7 @@ Laatst bijgewerkt: 2026-10-30
 | Prowlarr | zoekbronnen (indexers) | http://192.168.1.202:9696 | LXC 202 (Docker) | idem |
 | NZBGet | downloaden | http://192.168.1.202:6789 | LXC 202 (Docker) | idem |
 | Bazarr | ondertitels | http://192.168.1.202:6767 | LXC 202 (Docker) | idem |
-| Overseerr | verzoeken voor films/series | http://192.168.1.202:5055 | LXC 202 (Docker) | idem |
+| Overseerr | verzoeken voor films/series (gekoppeld aan Plex, Radarr, Sonarr) | http://192.168.1.202:5055 | LXC 202 (Docker) | idem |
 
 ### Mappen van de arr-stack
 

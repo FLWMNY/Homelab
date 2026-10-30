@@ -36,6 +36,12 @@
 - De oude losse zoekbronnen zijn verwijderd ("NZBPlanet" in Radarr, "Newznab" in Sonarr). Alle zoekbronnen beheer je voortaan alleen in Prowlarr. De test van "NzbPlanet (Prowlarr)" slaagt in beide.
 - Status: Newshosting-abonnement actief. NZBPlanet VIP. Plex: lifetime Plex Pass.
 
+**Plex scant automatisch, Overseerr ingesteld, eindtest geslaagd**
+- Plex: "Mijn bibliotheek automatisch scannen" en de gedeeltelijke scan staan aan.
+- Overseerr: Plex-server `192.168.1.202:32400` (zonder SSL, bibliotheken Films en Tv-series), Radarr `radarr:7878` → `/movies`, Sonarr `sonarr:8989` → `/series` met seizoensmappen, allebei HD-1080p en standaard. De API-sleutels heeft de eigenaar zelf ingevuld.
+- Eindtest: "Spider-Man: Brand New Day" aangevraagd in Overseerr → Radarr pakte binnen enkele seconden een 1080p-release van 2,6 GB → NZBGet → geïmporteerd naar `/movies/Spider-Man - Brand New Day (2026)` → Plex scande de map meteen. De hele keten duurde ongeveer 2 minuten.
+- Let op: fanfilms en video's zonder releasedatum (zoals "If Saitama Was in Jujutsu Kaisen") worden niet gezocht, omdat Radarr alleen uitgebrachte films zoekt. Die aanvraag staat nog in Overseerr/Radarr en kan weg.
+
 ## Nog te doen
 1. ~~Opslag van Zigbee (100) vergroten van 4 naar 8 GB.~~ Gedaan op 2026-10-30 (`pct resize 100 rootfs +4G`, nu 30% vol).
 2. ~~Automatische back-ups instellen.~~ Gedaan op 2026-10-30: opslag `backup2tb` op de 2 TB-schijf (met `is_mountpoint`, zodat er nooit naar een lege map wordt geschreven als de schijf mist) en een taak elke zondag om 03:00, de laatste 4 bewaard. Nog te doen: een kopie buiten huis (USB-schijf of cloud), en de back-ups van Home Assistant zelf naar bijvoorbeeld Google Drive.
@@ -44,7 +50,7 @@
    - ~~B. SSH alleen met sleutel.~~ Gedaan op 2026-10-30: `/etc/ssh/sshd_config.d/10-alleen-sleutel.conf` (`PermitRootLogin prohibit-password`, `PasswordAuthentication no`). Getest: de sleutel werkt, een wachtwoord wordt geweigerd. De Proxmox-webpagina en de Shell daarin werken nog met je wachtwoord. Een nieuw apparaat toegang geven: de publieke sleutel via de webpagina-Shell toevoegen aan `/root/.ssh/authorized_keys`.
    - **C. servarr (202): rechten inperken** (`lxc.apparmor.profile: unconfined`, `devices.allow: a`, lege `cap.drop`) en alleen `/dev/dri` doorgeven voor Plex-hardwaretranscoding (Plex Pass). Samen doen, met de back-up bij de hand en daarna een test van Docker.
    - D. Vaste IP-adressen: volgens de eigenaar al ingesteld in de router (DHCP-reservering). Zigbee hield 192.168.1.58 na een herstart. Controleren in de router als dat zo uitkomt.
-4. Een download van begin tot eind testen (Radarr → NZBGet → Plex).
-5. Later: upgrade naar Proxmox 9 (ondersteuning voor 8 loopt af), Radarr instellen op 4K WEB-DL, apps bijwerken, Overseerr en Bazarr instellen, Plex de videochip laten gebruiken (kan met Plex Pass), Tailscale.
+4. ~~Een download van begin tot eind testen.~~ Geslaagd op 2026-10-30 (zie hierboven).
+5. Later: upgrade naar Proxmox 9 (ondersteuning voor 8 loopt af), Radarr instellen op 4K WEB-DL, apps bijwerken, Bazarr instellen, Plex de videochip laten gebruiken (kan met Plex Pass), Tailscale.
 6. Oude back-up van 202 uit juni 2025 opruimen.
 7. Later, in een aparte Home Assistant-sessie (toegang via `HA_TOKEN` in `.env`): kapotte dashboardkaarten opruimen ("Mobile IOS" verwijst naar 5 verdwenen automatiseringen, "OLD Mobile" naar 4 verdwenen lampen), het lege tabblad "Verdiepingen", 86 onbeschikbare entiteiten doorlopen, tikfout "auromatisering".
