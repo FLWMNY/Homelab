@@ -37,7 +37,7 @@
 
 ## Nog te doen
 1. ~~Opslag van Zigbee (100) vergroten van 4 naar 8 GB.~~ Gedaan op 2026-10-30 (`pct resize 100 rootfs +4G`, nu 30% vol).
-2. Automatische back-ups instellen, plus een kopie op een tweede plek.
+2. ~~Automatische back-ups instellen.~~ Gedaan op 2026-10-30: opslag `backup2tb` op de 2 TB-schijf (met `is_mountpoint`, zodat er nooit naar een lege map wordt geschreven als de schijf mist) en een taak elke zondag om 03:00, de laatste 4 bewaard. Nog te doen: een kopie buiten huis (USB-schijf of cloud), en de back-ups van Home Assistant zelf naar bijvoorbeeld Google Drive.
 3. Beveiliging: `lxc.cgroup2.devices.allow: a` en de USB-regels weghalen bij 100 (de stick zit via het netwerk). Rechten van 202 inperken (apparmor `unconfined`). SSH alleen met sleutel. Vaste IP-adressen voor HA en Zigbee.
 4. Een download van begin tot eind testen (Radarr → NZBGet → Plex).
 5. Later: upgrade naar Proxmox 9 (ondersteuning voor 8 loopt af), Radarr instellen op 4K WEB-DL, apps bijwerken, Overseerr en Bazarr instellen, Plex de videochip laten gebruiken (kan met Plex Pass), Tailscale.

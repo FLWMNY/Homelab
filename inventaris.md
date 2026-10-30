@@ -58,7 +58,8 @@ De Docker-bestanden staan op de server in `/mnt/appdata/yaml` (arr-stack) en `/m
 
 | Wat | Waar | Wanneer |
 |---|---|---|
-| 100, 101, 202 | `local` (`/var/lib/vz/dump`) op dezelfde mini-pc | handmatig, 2026-10-30 |
+| 100, 101, 202 | `backup2tb` (`/mnt/nvme1n1/backups`, op de 2 TB-schijf) | **automatisch elke zondag 03:00**, snapshot, de laatste 4 bewaard |
+| 100, 101, 202 | `local` (`/var/lib/vz/dump`, op de 500 GB-schijf) | handmatig, 2026-10-30 |
 | 202 (oud) | idem | handmatig, 2025-06-07 |
 
-Er zijn nog **geen automatische back-ups** en nog **geen kopie op een tweede plek**.
+De back-ups staan op een andere schijf dan de VM's, maar nog wel in dezelfde mini-pc. Een kopie **buiten huis** is er nog niet.
