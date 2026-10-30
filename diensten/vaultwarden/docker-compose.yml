@@ -1,0 +1,14 @@
+# Vaultwarden (LXC 104). Alleen bereikbaar via Tailscale HTTPS:
+# Vaultwarden luistert op 127.0.0.1, en `tailscale serve` zet er https://vaultwarden.tailf6fed1.ts.net voor.
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: vaultwarden
+    restart: unless-stopped
+    environment:
+      DOMAIN: "https://vaultwarden.tailf6fed1.ts.net"
+      SIGNUPS_ALLOWED: "false"  # eigen account is aangemaakt (2026-10-30); niemand anders kan registreren
+    volumes:
+      - /opt/vaultwarden/data:/data
+    ports:
+      - "127.0.0.1:8080:80"

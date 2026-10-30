@@ -130,3 +130,11 @@
 - De eigenaar heeft de machine aan zijn account gekoppeld, de route 192.168.1.0/24 goedgekeurd en "key expiry" uitgezet.
 - Getest: via 4G (wifi uit) op de iPhone met de Tailscale-app opent Home Assistant op http://192.168.1.184:8123.
 - Volgende stappen: Vaultwarden (eigen LXC, met eigen Tailscale-aansluiting voor HTTPS), daarna Samba.
+
+## 2026-10-30 (avond): Vaultwarden
+
+- Nieuwe LXC **104 "vaultwarden"**: Debian 12, unprivileged (`nesting=1,keyctl=1`), 1 kern, 512 MB, 4 GB, `dev0: /dev/net/tun`, start automatisch.
+- Docker via get.docker.com. Vaultwarden via `diensten/vaultwarden/docker-compose.yml` in `/opt/vaultwarden`; de data staat in `/opt/vaultwarden/data` (zit in de wekelijkse Proxmox-back-up van LXC 104).
+- Vaultwarden luistert alleen op `127.0.0.1:8080`. Eigen Tailscale-machine "vaultwarden" (key expiry uit) met `tailscale serve --bg http://127.0.0.1:8080` → **https://vaultwarden.tailf6fed1.ts.net** (geldig certificaat, alleen binnen het tailnet). Vanaf het thuisnetwerk zonder Tailscale is hij niet bereikbaar (getest).
+- De eigenaar heeft zijn account aangemaakt (1 gebruiker). Daarna `SIGNUPS_ALLOWED=false`; getest: een nieuwe registratie wordt geweigerd. De beheerpagina (`ADMIN_TOKEN`) staat uit.
+- Nog te doen: Bitwarden-apps op laptop, Windows-pc, S24 en iPhone (server: "zelf gehost" met het adres hierboven), LastPass importeren (exportbestand daarna veilig verwijderen), en een **back-up buiten huis** (nu belangrijk vanwege de kluis).
