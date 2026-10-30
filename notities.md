@@ -32,8 +32,9 @@
 **Prowlarr gekoppeld aan Radarr en Sonarr**
 - In Prowlarr → Settings → Apps: Radarr (`http://radarr:7878`) en Sonarr (`http://sonarr:8989`) toegevoegd, met Prowlarr-adres `http://prowlarr:9696` en "Full Sync".
 - Het doorzetten van NZBPlanet lukte nog niet: NZBPlanet gaf `429 Too Many Requests` (daglimiet van het gratis account). Prowlarr probeert het vanzelf opnieuw.
-- Daarna de oude losse zoekbronnen weghalen: "NZBPlanet" in Radarr en "Newznab" in Sonarr. Anders zoekt alles dubbel en is de limiet nog sneller op.
-- Status: Newshosting-abonnement actief. NZBPlanet is een gratis account (geen VIP). Plex: lifetime Plex Pass.
+- 2026-10-30 (avond): NZBPlanet VIP gekocht. In Prowlarr stond de indexer na de fouten tijdelijk uit; een indexer-test heeft dat opgeheven. Sync opnieuw gedraaid: Radarr en Sonarr hebben nu "NzbPlanet (Prowlarr)".
+- De oude losse zoekbronnen zijn verwijderd ("NZBPlanet" in Radarr, "Newznab" in Sonarr). Alle zoekbronnen beheer je voortaan alleen in Prowlarr. De test van "NzbPlanet (Prowlarr)" slaagt in beide.
+- Status: Newshosting-abonnement actief. NZBPlanet VIP. Plex: lifetime Plex Pass.
 
 ## Nog te doen
 1. ~~Opslag van Zigbee (100) vergroten van 4 naar 8 GB.~~ Gedaan op 2026-10-30 (`pct resize 100 rootfs +4G`, nu 30% vol).
