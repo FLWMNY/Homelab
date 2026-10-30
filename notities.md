@@ -40,7 +40,7 @@
 - Plex: "Mijn bibliotheek automatisch scannen" en de gedeeltelijke scan staan aan.
 - Overseerr: Plex-server `192.168.1.202:32400` (zonder SSL, bibliotheken Films en Tv-series), Radarr `radarr:7878` → `/movies`, Sonarr `sonarr:8989` → `/series` met seizoensmappen, allebei HD-1080p en standaard. De API-sleutels heeft de eigenaar zelf ingevuld.
 - Eindtest: "Spider-Man: Brand New Day" aangevraagd in Overseerr → Radarr pakte binnen enkele seconden een 1080p-release van 2,6 GB → NZBGet → geïmporteerd naar `/movies/Spider-Man - Brand New Day (2026)` → Plex scande de map meteen. De hele keten duurde ongeveer 2 minuten.
-- Let op: fanfilms en video's zonder releasedatum (zoals "If Saitama Was in Jujutsu Kaisen") worden niet gezocht, omdat Radarr alleen uitgebrachte films zoekt. Die aanvraag staat nog in Overseerr/Radarr en kan weg.
+- Let op: fanfilms en video's zonder releasedatum (zoals "If Saitama Was in Jujutsu Kaisen") worden niet gezocht, omdat Radarr alleen uitgebrachte films zoekt. Die aanvraag is weer verwijderd uit Overseerr en Radarr.
 
 ## Nog te doen
 1. ~~Opslag van Zigbee (100) vergroten van 4 naar 8 GB.~~ Gedaan op 2026-10-30 (`pct resize 100 rootfs +4G`, nu 30% vol).
