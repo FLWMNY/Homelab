@@ -122,3 +122,11 @@
 - Stap 4: gastenwifi voor bezoek en slimme apparaten (Dreame, Reolink).
 - Stap 5: `rpcbind` (poort 111) uitzetten.
 - Tailscale, voor Home Assistant buiten de deur.
+
+## 2026-10-30 (avond): Tailscale
+
+- Nieuwe LXC **103 "tailscale"**: Debian 12 (sjabloon `debian-12-standard_12.12-1`), unprivileged, 1 kern, 256 MB, 2 GB, `dev0: /dev/net/tun`, start automatisch.
+- Tailscale 1.104.4 via het officiële installatiescript. IP-doorsturen aan (`/etc/sysctl.d/99-tailscale.conf`). Gestart met `tailscale up --advertise-routes=192.168.1.0/24 --hostname=thuis-toegang --accept-dns=false`.
+- De eigenaar heeft de machine aan zijn account gekoppeld, de route 192.168.1.0/24 goedgekeurd en "key expiry" uitgezet.
+- Getest: via 4G (wifi uit) op de iPhone met de Tailscale-app opent Home Assistant op http://192.168.1.184:8123.
+- Volgende stappen: Vaultwarden (eigen LXC, met eigen Tailscale-aansluiting voor HTTPS), daarna Samba.

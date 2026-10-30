@@ -27,6 +27,7 @@ Laatst bijgewerkt: 2026-10-30
 | 101 | home-assistant | VM (Home Assistant OS) | 192.168.1.184 (DHCP) | 2 | 6 GB | 32 GB | ja |
 | 100 | zigbee2mqtt | LXC (Debian) | 192.168.1.58 (DHCP) | 2 | 1 GB | 8 GB (30% vol) | ja |
 | 202 | servarr | LXC (Ubuntu 22.04 + Docker, privileged, videochip doorgegeven) | 192.168.1.202 (vast) | 6 | 2 GB | 24 GB | ja |
+| 103 | tailscale | LXC (Debian 12, unprivileged, `/dev/net/tun`) | 192.168.1.170 (DHCP), Tailscale 100.90.115.11 | 1 | 256 MB | 2 GB | ja |
 
 ## Diensten
 
@@ -43,6 +44,9 @@ Laatst bijgewerkt: 2026-10-30
 | NZBGet | downloaden | http://192.168.1.202:6789 | LXC 202 (Docker) | idem |
 | Bazarr | ondertitels | http://192.168.1.202:6767 | LXC 202 (Docker) | idem |
 | Overseerr | verzoeken voor films/series (gekoppeld aan Plex, Radarr, Sonarr) | http://192.168.1.202:5055 | LXC 202 (Docker) | idem |
+| Tailscale | veilige toegang van buitenaf (subnet router voor 192.168.1.0/24) | machine "thuis-toegang" in tailnet `tailf6fed1.ts.net` | LXC 103 | sleutel verloopt niet |
+
+Van buitenaf: Tailscale-app aanzetten op het apparaat, en dan gewoon de 192.168.1.x-adressen hierboven gebruiken. Er staan geen poorten open op de router.
 
 ### Mappen van de arr-stack
 
