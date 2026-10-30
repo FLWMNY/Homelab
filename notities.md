@@ -70,6 +70,15 @@
      - Reservekopieën: `/root/lxc-202.conf.bak-2026-10-30` (host) en `docker-compose.yaml.bak-2026-10-30-gpu` (in `/mnt/appdata/plexyaml`).
    - D. Vaste IP-adressen: volgens de eigenaar al ingesteld in de router (DHCP-reservering). Zigbee hield 192.168.1.58 na een herstart. Controleren in de router als dat zo uitkomt.
 4. ~~Een download van begin tot eind testen.~~ Geslaagd op 2026-10-30 (zie hierboven).
-5. Later: upgrade naar Proxmox 9 (ondersteuning voor 8 loopt af), Radarr instellen op 4K WEB-DL, Bazarr instellen, eventueel Jellyfin naast Plex (AMD-videochip werkt daar wel), servarr omzetten naar unprivileged (dan kan AppArmor aan), Tailscale, `appdata` meenemen in de automatische back-up.
+5. Later: upgrade naar Proxmox 9 (ondersteuning voor 8 loopt af), Radarr instellen op 4K WEB-DL, eventueel Jellyfin naast Plex (AMD-videochip werkt daar wel), servarr omzetten naar unprivileged (dan kan AppArmor aan), Tailscale, `appdata` meenemen in de automatische back-up.
 6. Oude back-up van 202 uit juni 2025 opruimen.
 7. Later, in een aparte Home Assistant-sessie (toegang via `HA_TOKEN` in `.env`): kapotte dashboardkaarten opruimen ("Mobile IOS" verwijst naar 5 verdwenen automatiseringen, "OLD Mobile" naar 4 verdwenen lampen), het lege tabblad "Verdiepingen", 86 onbeschikbare entiteiten doorlopen, tikfout "auromatisering".
+
+## 2026-10-30 (avond): Bazarr ingesteld
+
+- Bazarr draaide al, maar was nooit ingesteld. Nu via de Bazarr-API ingesteld (reservekopie van de oude config: `/root/bazarr-config.yaml.bak-2026-10-30` in LXC 202):
+  - Gekoppeld aan Radarr (`radarr:7878`) en Sonarr (`sonarr:8989`).
+  - Talen: Nederlands en Engels. Profiel "Nederlands + Engels" (allebei downloaden), standaard voor alle films en series.
+  - Gratis bronnen zonder account: podnapisi, gestdown, yifysubtitles, embeddedsubtitles.
+- Test: Black Panther en Spider-Man hebben al **ingebouwde** NL- en EN-ondertitels in het `.mkv`-bestand. Bazarr ziet dat en hoeft niets te downloaden. Bij nieuwe films zonder ingebouwde ondertitels zoekt Bazarr zelf.
+- Nog te doen (eigenaar): een gratis account bij OpenSubtitles.com maken en de inlog zelf invullen in Bazarr → Settings → Providers → OpenSubtitles.com. Dat is de grootste bron.
