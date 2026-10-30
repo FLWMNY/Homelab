@@ -38,7 +38,11 @@
 ## Nog te doen
 1. ~~Opslag van Zigbee (100) vergroten van 4 naar 8 GB.~~ Gedaan op 2026-10-30 (`pct resize 100 rootfs +4G`, nu 30% vol).
 2. ~~Automatische back-ups instellen.~~ Gedaan op 2026-10-30: opslag `backup2tb` op de 2 TB-schijf (met `is_mountpoint`, zodat er nooit naar een lege map wordt geschreven als de schijf mist) en een taak elke zondag om 03:00, de laatste 4 bewaard. Nog te doen: een kopie buiten huis (USB-schijf of cloud), en de back-ups van Home Assistant zelf naar bijvoorbeeld Google Drive.
-3. Beveiliging: `lxc.cgroup2.devices.allow: a` en de USB-regels weghalen bij 100 (de stick zit via het netwerk). Rechten van 202 inperken (apparmor `unconfined`). SSH alleen met sleutel. Vaste IP-adressen voor HA en Zigbee.
+3. Beveiliging:
+   - ~~A. Zigbee (100): overbodige rechten weghalen.~~ Gedaan op 2026-10-30: `lxc.cgroup2.devices.allow`-regels, de lege `lxc.cap.drop:` en de USB-`lxc.mount.entry`-regels verwijderd. Zigbee2MQTT maakt na de herstart gewoon verbinding met de stick via het netwerk. Oude config: `/root/lxc-100.conf.bak-2026-10-30` op de host.
+   - ~~B. SSH alleen met sleutel.~~ Gedaan op 2026-10-30: `/etc/ssh/sshd_config.d/10-alleen-sleutel.conf` (`PermitRootLogin prohibit-password`, `PasswordAuthentication no`). Getest: de sleutel werkt, een wachtwoord wordt geweigerd. De Proxmox-webpagina en de Shell daarin werken nog met je wachtwoord. Een nieuw apparaat toegang geven: de publieke sleutel via de webpagina-Shell toevoegen aan `/root/.ssh/authorized_keys`.
+   - **C. servarr (202): rechten inperken** (`lxc.apparmor.profile: unconfined`, `devices.allow: a`, lege `cap.drop`) en alleen `/dev/dri` doorgeven voor Plex-hardwaretranscoding (Plex Pass). Samen doen, met de back-up bij de hand en daarna een test van Docker.
+   - D. Vaste IP-adressen: volgens de eigenaar al ingesteld in de router (DHCP-reservering). Zigbee hield 192.168.1.58 na een herstart. Controleren in de router als dat zo uitkomt.
 4. Een download van begin tot eind testen (Radarr → NZBGet → Plex).
 5. Later: upgrade naar Proxmox 9 (ondersteuning voor 8 loopt af), Radarr instellen op 4K WEB-DL, apps bijwerken, Overseerr en Bazarr instellen, Plex de videochip laten gebruiken (kan met Plex Pass), Tailscale.
 6. Oude back-up van 202 uit juni 2025 opruimen.
