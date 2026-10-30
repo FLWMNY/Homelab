@@ -138,3 +138,7 @@
 - Vaultwarden luistert alleen op `127.0.0.1:8080`. Eigen Tailscale-machine "vaultwarden" (key expiry uit) met `tailscale serve --bg http://127.0.0.1:8080` → **https://vaultwarden.tailf6fed1.ts.net** (geldig certificaat, alleen binnen het tailnet). Vanaf het thuisnetwerk zonder Tailscale is hij niet bereikbaar (getest).
 - De eigenaar heeft zijn account aangemaakt (1 gebruiker). Daarna `SIGNUPS_ALLOWED=false`; getest: een nieuwe registratie wordt geweigerd. De beheerpagina (`ADMIN_TOKEN`) staat uit.
 - Nog te doen: Bitwarden-apps op laptop, Windows-pc, S24 en iPhone (server: "zelf gehost" met het adres hierboven), LastPass importeren (exportbestand daarna veilig verwijderen), en een **back-up buiten huis** (nu belangrijk vanwege de kluis).
+- LastPass geïmporteerd (61 items) via de webkluis op de laptop (Tools → Import → "LastPass (csv)"). Het CSV-bestand heeft de eigenaar zelf afgehandeld en daarna verwijderd. Bitwarden werkt op de laptop (Edge), de iPhone en de S24.
+- Let op: zonder push-meldingen synchroniseren de apps niet vanzelf na een wijziging. Handmatig: Bitwarden → Instellingen → Kluis → Synchroniseren. Tailscale moet daarvoor aan staan. Mogelijke verbetering: push via bitwarden.com/host (gratis installatie-id en sleutel; alleen een seintje, geen kluisdata).
+- Les: de S24 zat eerst niet in Tailscale, en de iPhone had Tailscale uit. Dan geeft Bitwarden een vage foutmelding.
+- Later: LastPass-account verwijderen na een paar weken, belangrijke wachtwoorden vernieuwen (LastPass-lek 2022), LastPass Authenticator-codes overzetten.
