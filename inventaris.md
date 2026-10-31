@@ -47,7 +47,7 @@ Laatst bijgewerkt: 2026-10-30
 | Bazarr | ondertitels | http://192.168.1.202:6767 | LXC 202 (Docker) | idem |
 | Overseerr | verzoeken voor films/series (gekoppeld aan Plex, Radarr, Sonarr) | http://192.168.1.202:5055 | LXC 202 (Docker) | idem |
 | Tailscale | veilige toegang van buitenaf (subnet router voor 192.168.1.0/24) | machine "thuis-toegang" in tailnet `tailf6fed1.ts.net` | LXC 103 | sleutel verloopt niet |
-| Samba | gedeelde map "Bestanden" (alleen gebruiker floriano, SMB3) | `\192.168.1.203Bestanden` | LXC 105 | data: `/mnt/nvme1n1/bestanden` (2 TB-schijf), `diensten/samba/smb.conf` |
+| Samba | gedeelde map "Bestanden" (alleen gebruiker floriano, SMB3) | `\\192.168.1.203\Bestanden` | LXC 105 | data: `/mnt/nvme1n1/bestanden` (2 TB-schijf), `diensten/samba/smb.conf` |
 | Vaultwarden | password manager (Bitwarden-apps, "zelf gehost") | https://vaultwarden.tailf6fed1.ts.net (**alleen via Tailscale**) | LXC 104 (Docker) | `/opt/vaultwarden/data`, `diensten/vaultwarden/docker-compose.yml` |
 
 Van buitenaf: Tailscale-app aanzetten op het apparaat, en dan gewoon de 192.168.1.x-adressen hierboven gebruiken. Er staan geen poorten open op de router.
