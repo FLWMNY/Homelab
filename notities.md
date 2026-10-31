@@ -142,3 +142,11 @@
 - Let op: zonder push-meldingen synchroniseren de apps niet vanzelf na een wijziging. Handmatig: Bitwarden → Instellingen → Kluis → Synchroniseren. Tailscale moet daarvoor aan staan. Mogelijke verbetering: push via bitwarden.com/host (gratis installatie-id en sleutel; alleen een seintje, geen kluisdata).
 - Les: de S24 zat eerst niet in Tailscale, en de iPhone had Tailscale uit. Dan geeft Bitwarden een vage foutmelding.
 - Later: LastPass-account verwijderen na een paar weken, belangrijke wachtwoorden vernieuwen (LastPass-lek 2022), LastPass Authenticator-codes overzetten.
+
+## 2026-10-31: back-up naar de externe SSD
+
+- Verse back-ups van LXC 103 en 104 gemaakt (`backup2tb`), omdat die nog geen back-up hadden.
+- Script `scripts/backup-naar-ssd.sh` (Git Bash op de laptop): haalt per VM/LXC de nieuwste vzdump plus de nieuwste `appdata`-back-up op, en zet ze in `D:\Homelab\Back-ups\JJJJ-MM-DD\`. Elk bestand wordt gecontroleerd met sha256. Alleen de laatste 3 datummappen blijven bewaard; bij een fout wordt er niets opgeruimd. Zelftest: `bash scripts/backup-naar-ssd.sh --zelftest`.
+- Eerste run: 6 bestanden, 7,6 GB, alles "gecontroleerd: OK". Duurde 38 minuten via wifi (~3,5 MB/s); met een kabel gaat het sneller.
+- Let op: de SSD is niet versleuteld (de back-ups bevatten API-sleutels en de MQTT-wachtwoorden; de Vaultwarden-kluis zelf is wel versleuteld). Neem de SSD af en toe mee buiten huis.
+- Nog te doen: de Samba-map `bestanden` meenemen, en het script regelmatig laten draaien.
