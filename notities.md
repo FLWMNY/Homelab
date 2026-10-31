@@ -161,3 +161,5 @@
 - Koppelen: Windows → `\192.168.1.203\Bestanden` als S:. iPhone (Bestanden) → `smb://192.168.1.203`. S24 (Mijn bestanden → Netwerkopslag → SMB).
 - Ontdekt: de Windows-laptop stuurt thuisverkeer naar 192.168.1.x **via Tailscale** (subnetroutes geaccepteerd), dus via de kleine LXC 103. Dat kan de lage snelheid van de SSD-back-up verklaren (~3,5 MB/s).
 - Nog te doen: de map `bestanden` meenemen in de SSD-back-up.
+- Besluit eigenaar (2026-10-31): de map `bestanden` gaat **niet** naar de muziek-SSD; die SSD blijft vooral voor muziek (alleen de server-back-ups van ~8 GB, max. 3 sets). Back-up buiten huis via de cloud (bijvoorbeeld een Hetzner Storage Box met restic) is besproken, maar voor nu niet nodig.
+- Let op: `bestanden` staat daardoor maar op **één schijf** (de 2 TB-NVMe). Zet daar geen bestanden die nergens anders staan, of kies alsnog een tweede plek.
