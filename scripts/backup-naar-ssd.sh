@@ -66,6 +66,20 @@ done <<< "$lijst"
 
 echo "$lijst" > "$vandaag/sha256-controlegetallen.txt"
 
+# De Samba-map `bestanden`: één actuele kopie in $DOEL/bestanden (geen 3 datummappen, om ruimte op de SSD te sparen).
+# shortcut: bestandsnamen met tekens die Windows niet toestaat (: ? * enz.) mislukken; dan krijg je een FOUT.
+echo "Kopiëren: map bestanden ..."
+nieuw="$DOEL/bestanden.nieuw"
+rm -rf -- "$nieuw"; mkdir -p "$nieuw"
+if ssh_server "tar -C /mnt/nvme1n1/bestanden -cf - ." | tar --no-same-owner -xf - -C "$nieuw" \
+   && ssh_server "cd /mnt/nvme1n1/bestanden && find . -type f -print0 | xargs -0r sha256sum" > "$nieuw.sha256" \
+   && { [[ ! -s "$nieuw.sha256" ]] || (cd "$nieuw" && sha256sum --quiet -c "$nieuw.sha256"); }; then
+  rm -rf -- "$DOEL/bestanden"; mv "$nieuw" "$DOEL/bestanden"; mv "$nieuw.sha256" "$DOEL/bestanden-sha256.txt"
+  echo "  gecontroleerd: OK ($(wc -l < "$DOEL/bestanden-sha256.txt") bestanden)"
+else
+  echo "  FOUT: kopie van bestanden mislukt; de vorige kopie is niet aangeraakt"; fout=1
+fi
+
 if [[ $fout -ne 0 ]]; then
   echo "Er ging iets mis. Oude back-ups zijn NIET opgeruimd."; exit 1
 fi

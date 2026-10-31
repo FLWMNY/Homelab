@@ -69,9 +69,9 @@ De Docker-bestanden staan op de server in `/mnt/appdata/yaml` (arr-stack) en `/m
 | **alle** VM's en LXC's (100–105, 202) | `backup2tb` (`/mnt/nvme1n1/backups`, op de 2 TB-schijf) | **automatisch elke zondag 03:00**, snapshot, de laatste 4 bewaard |
 | `appdata` van 202 | `/mnt/nvme1n1/backups/appdata` | automatisch bij de wekelijkse taak (hook-script), de laatste 4 bewaard |
 | 100, 101, 202 | `local` (`/var/lib/vz/dump`, op de 500 GB-schijf) | handmatig, 2026-10-30 |
+| Samba-map `bestanden` | `/var/lib/vz/bestanden-kopie/` (500 GB-schijf, dus een **andere** schijf dan het origineel) | automatisch bij de wekelijkse taak (hook-script), 4 weekmappen, max. 50 GB |
 | nieuwste set | externe SSD `D:\Homelab\Back-ups` | handmatig met `scripts/backup-naar-ssd.sh`, de laatste 3 bewaard |
-
-Niet in een back-up: de Samba-map `bestanden` (staat maar op één schijf).
+| Samba-map `bestanden` | externe SSD `D:\Homelab\Back-ups\bestanden` | handmatig, met hetzelfde script; één actuele kopie |
 
 De automatische back-ups staan op een andere schijf dan de VM's, maar nog wel in dezelfde mini-pc. De SSD is de kopie buiten de mini-pc.
 

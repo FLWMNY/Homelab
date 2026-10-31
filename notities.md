@@ -178,3 +178,12 @@
 - Opgeruimd: de oude back-up van 202 uit juni 2025 (403 MB in `/var/lib/vz/dump`) en `/root/docker-compose.yaml.bak-2026-10-30` in LXC 202 (bevatte het oude NZBGet-wachtwoord).
 - Gecontroleerd: alle VM's/LXC's draaien, de 7 Docker-apps in 202 draaien, de Proxmox-webpagina werkt.
 - `inventaris.md`: back-uptabel bijgewerkt (de wekelijkse taak neemt **alle** machines mee, `all 1`) en een tabel met Proxmox-gebruikers toegevoegd.
+
+## 2026-10-31: Samba-map `bestanden` in de back-ups
+
+- Besluit eigenaar: `bestanden` gaat nu **wel** mee, ook naar de SSD (dit vervangt het eerdere besluit hierboven).
+- **Wekelijks (server)**: het hook-script `scripts/vzdump-appdata-hook.sh` kopieert bij de zondagse taak eerst `bestanden` met rsync naar `/var/lib/vz/bestanden-kopie/JJJJ-MM-DD_UUMMSS/` op de **500 GB-schijf** (het origineel staat op de 2 TB-schijf). 4 weekmappen; ongewijzigde bestanden zijn hardlinks en kosten maar één keer ruimte. Boven 50 GB, of als er minder dan 20 GB vrij zou blijven, slaat het de kopie over met een FOUT-melding in het back-uplogboek. Met de hand: `vzdump-appdata-hook.sh bestanden` op de host (de apps worden daarbij niet gestopt).
+- Reservekopie van het oude hook-script: `/root/vzdump-appdata-hook.sh.bak-2026-10-31` op de host.
+- **SSD**: `scripts/backup-naar-ssd.sh` zet nu ook één actuele kopie in `D:\Homelab\Back-ups\bestanden` (geen 3 datummappen, om ruimte te sparen), gecontroleerd met sha256 (`bestanden-sha256.txt`). Bij een fout blijft de vorige kopie staan.
+- Getest: 5 runs op de server (4 bewaard, hardlinks werken), de 7 apps bleven draaien; SSD-run met een testbestand (met spatie in de naam) gecontroleerd OK, en na verwijderen verdween het ook van de SSD. Testbestanden opgeruimd.
+- Grens: wordt `bestanden` groter dan 50 GB, dan moet er een andere plek voor de serverkopie komen.
