@@ -163,3 +163,10 @@
 - Nog te doen: de map `bestanden` meenemen in de SSD-back-up.
 - Besluit eigenaar (2026-10-31): de map `bestanden` gaat **niet** naar de muziek-SSD; die SSD blijft vooral voor muziek (alleen de server-back-ups van ~8 GB, max. 3 sets). Back-up buiten huis via de cloud (bijvoorbeeld een Hetzner Storage Box met restic) is besproken, maar voor nu niet nodig.
 - Let op: `bestanden` staat daardoor maar op **één schijf** (de 2 TB-NVMe). Zet daar geen bestanden die nergens anders staan, of kies alsnog een tweede plek.
+
+## 2026-10-31: appdata automatisch in de wekelijkse back-up
+
+- vzdump slaat bind mounts (zoals `appdata` van LXC 202) altijd over. Daarom een hook-script: `scripts/vzdump-appdata-hook.sh`, op de host in `/usr/local/bin/vzdump-appdata-hook.sh`.
+- Het script wordt aangeroepen bij `job-start` van de wekelijkse taak (`script` in `/etc/pve/jobs.cfg`; reservekopie `/root/jobs.cfg.bak-2026-10-31`). Het stopt de apps in LXC 202, pakt `appdata` in (zonder de Plex-cache) naar `/mnt/nvme1n1/backups/appdata/appdata-JJJJ-MM-DD_UUMM.tar.gz`, start de apps weer en bewaart de laatste 4. Bij een fout gaat de rest van de back-up gewoon door.
+- Test: 12 seconden onderbreking, archief van 32 MB met de databases van Radarr, Sonarr, Prowlarr en Bazarr en de instellingen van Overseerr. Alle 7 apps draaiden daarna weer.
+- Het SSD-script pakt automatisch de nieuwste appdata-back-up mee.
