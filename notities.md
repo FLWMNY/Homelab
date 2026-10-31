@@ -71,7 +71,7 @@
    - D. Vaste IP-adressen: volgens de eigenaar al ingesteld in de router (DHCP-reservering). Zigbee hield 192.168.1.58 na een herstart. Controleren in de router als dat zo uitkomt.
 4. ~~Een download van begin tot eind testen.~~ Geslaagd op 2026-10-30 (zie hierboven).
 5. Later: upgrade naar Proxmox 9 (ondersteuning voor 8 loopt af), Radarr instellen op 4K WEB-DL, eventueel Jellyfin naast Plex (AMD-videochip werkt daar wel), servarr omzetten naar unprivileged (dan kan AppArmor aan), Tailscale, `appdata` meenemen in de automatische back-up.
-6. Oude back-up van 202 uit juni 2025 opruimen.
+6. ~~Oude back-up van 202 uit juni 2025 opruimen.~~ Gedaan op 2026-10-31.
 7. Later, in een aparte Home Assistant-sessie (toegang via `HA_TOKEN` in `.env`): kapotte dashboardkaarten opruimen ("Mobile IOS" verwijst naar 5 verdwenen automatiseringen, "OLD Mobile" naar 4 verdwenen lampen), het lege tabblad "Verdiepingen", 86 onbeschikbare entiteiten doorlopen, tikfout "auromatisering".
 
 ## 2026-10-30 (avond): Bazarr ingesteld
@@ -118,9 +118,9 @@
 - Wens: Home Assistant buiten de deur gebruiken → via Tailscale, zonder open poorten.
 
 **Uitgesteld (op verzoek van de eigenaar), voor later:**
-- Stap 3: tweestapsverificatie (TOTP) op Proxmox voor `root@pam`, en nagaan of `flow@pve` nog nodig is.
+- Stap 3: tweestapsverificatie (TOTP) op Proxmox voor `root@pam`. (`flow@pve` is uitgezet op 2026-10-31.)
 - Stap 4: gastenwifi voor bezoek en slimme apparaten (Dreame, Reolink).
-- Stap 5: `rpcbind` (poort 111) uitzetten.
+- ~~Stap 5: `rpcbind` (poort 111) uitzetten.~~ Gedaan op 2026-10-31.
 - Tailscale, voor Home Assistant buiten de deur.
 
 ## 2026-10-30 (avond): Tailscale
@@ -170,3 +170,11 @@
 - Het script wordt aangeroepen bij `job-start` van de wekelijkse taak (`script` in `/etc/pve/jobs.cfg`; reservekopie `/root/jobs.cfg.bak-2026-10-31`). Het stopt de apps in LXC 202, pakt `appdata` in (zonder de Plex-cache) naar `/mnt/nvme1n1/backups/appdata/appdata-JJJJ-MM-DD_UUMM.tar.gz`, start de apps weer en bewaart de laatste 4. Bij een fout gaat de rest van de back-up gewoon door.
 - Test: 12 seconden onderbreking, archief van 32 MB met de databases van Radarr, Sonarr, Prowlarr en Bazarr en de instellingen van Overseerr. Alle 7 apps draaiden daarna weer.
 - Het SSD-script pakt automatisch de nieuwste appdata-back-up mee.
+
+## 2026-10-31: flow@pve en rpcbind uit, opgeruimd
+
+- **`flow@pve`** (beheerder van de hele server, alleen een wachtwoord, geen logins in de bewaarde logboeken) is **uitgezet**, niet verwijderd. Terugzetten: `pveum user modify flow@pve --enable 1`.
+- **`rpcbind`** (poort 111, alleen nodig voor NFS, dat niet gebruikt wordt) is gestopt en start niet meer automatisch. Poort 111 is dicht. Terugzetten: `systemctl enable --now rpcbind.socket rpcbind.service`.
+- Opgeruimd: de oude back-up van 202 uit juni 2025 (403 MB in `/var/lib/vz/dump`) en `/root/docker-compose.yaml.bak-2026-10-30` in LXC 202 (bevatte het oude NZBGet-wachtwoord).
+- Gecontroleerd: alle VM's/LXC's draaien, de 7 Docker-apps in 202 draaien, de Proxmox-webpagina werkt.
+- `inventaris.md`: back-uptabel bijgewerkt (de wekelijkse taak neemt **alle** machines mee, `all 1`) en een tabel met Proxmox-gebruikers toegevoegd.

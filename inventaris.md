@@ -1,6 +1,6 @@
 # Inventaris homelab
 
-Laatst bijgewerkt: 2026-10-30
+Laatst bijgewerkt: 2026-10-31
 
 ## Mini-pc (Proxmox-host)
 
@@ -66,8 +66,18 @@ De Docker-bestanden staan op de server in `/mnt/appdata/yaml` (arr-stack) en `/m
 
 | Wat | Waar | Wanneer |
 |---|---|---|
-| 100, 101, 202 | `backup2tb` (`/mnt/nvme1n1/backups`, op de 2 TB-schijf) | **automatisch elke zondag 03:00**, snapshot, de laatste 4 bewaard |
+| **alle** VM's en LXC's (100–105, 202) | `backup2tb` (`/mnt/nvme1n1/backups`, op de 2 TB-schijf) | **automatisch elke zondag 03:00**, snapshot, de laatste 4 bewaard |
+| `appdata` van 202 | `/mnt/nvme1n1/backups/appdata` | automatisch bij de wekelijkse taak (hook-script), de laatste 4 bewaard |
 | 100, 101, 202 | `local` (`/var/lib/vz/dump`, op de 500 GB-schijf) | handmatig, 2026-10-30 |
-| 202 (oud) | idem | handmatig, 2025-06-07 |
+| nieuwste set | externe SSD `D:\Homelab\Back-ups` | handmatig met `scripts/backup-naar-ssd.sh`, de laatste 3 bewaard |
 
-De back-ups staan op een andere schijf dan de VM's, maar nog wel in dezelfde mini-pc. Een kopie **buiten huis** is er nog niet.
+Niet in een back-up: de Samba-map `bestanden` (staat maar op één schijf).
+
+De automatische back-ups staan op een andere schijf dan de VM's, maar nog wel in dezelfde mini-pc. De SSD is de kopie buiten de mini-pc.
+
+## Gebruikers Proxmox
+
+| Gebruiker | Status |
+|---|---|
+| `root@pam` | in gebruik (webpagina en SSH met sleutel) |
+| `flow@pve` | **uitgezet** op 2026-10-31 (beheerder, werd niet gebruikt) |
