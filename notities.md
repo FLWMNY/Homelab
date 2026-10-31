@@ -187,3 +187,6 @@
 - **SSD**: `scripts/backup-naar-ssd.sh` zet nu ook één actuele kopie in `D:\Homelab\Back-ups\bestanden` (geen 3 datummappen, om ruimte te sparen), gecontroleerd met sha256 (`bestanden-sha256.txt`). Bij een fout blijft de vorige kopie staan.
 - Getest: 5 runs op de server (4 bewaard, hardlinks werken), de 7 apps bleven draaien; SSD-run met een testbestand (met spatie in de naam) gecontroleerd OK, en na verwijderen verdween het ook van de SSD. Testbestanden opgeruimd.
 - Grens: wordt `bestanden` groter dan 50 GB, dan moet er een andere plek voor de serverkopie komen.
+
+## Op het lijstje (2026-10-31)
+- Tweestapsverificatie (TOTP) op Proxmox voor `root@pam`: uitgesteld op verzoek van de eigenaar.
