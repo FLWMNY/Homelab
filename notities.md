@@ -190,3 +190,14 @@
 
 ## Op het lijstje (2026-10-31)
 - Tweestapsverificatie (TOTP) op Proxmox voor `root@pam`: uitgesteld op verzoek van de eigenaar.
+
+## 2026-10-31: vaste IP-adressen
+
+- **Tailscale (103) → 192.168.1.204** en **Vaultwarden (104) → 192.168.1.205**: vast via `pct set ... ip=.../24,gw=192.168.1.1`. Getest: allebei online in Tailscale, internet en DNS werken, Vaultwarden antwoordt via https://vaultwarden.tailf6fed1.ts.net.
+- **Zigbee-stick (SLZB-06) → 192.168.1.208**: door de eigenaar op de stick zelf ingesteld (DHCP uit, gateway 192.168.1.1). In Zigbee2MQTT `serial.port` aangepast naar `tcp://192.168.1.208:6638`.
+- **Zigbee2MQTT (100) → 192.168.1.206**. In Home Assistant de MQTT-koppeling opnieuw geconfigureerd (via de API, wachtwoord ongewijzigd) met broker `192.168.1.206`. De titel van de koppeling toont nog "192.168.1.58"; dat is alleen een naam.
+- Getest: HA is verbonden met Mosquitto op .206; na een herstart van Zigbee2MQTT hebben alle 25 lampen weer een status in HA. Niets opnieuw gekoppeld; namen en automatiseringen ongewijzigd. Onderbreking ongeveer 5 minuten.
+- Reservekopieën: `/root/lxc-{100,103,104}.conf.bak-2026-10-31-ip` op de host, en in LXC 100 `/root/backup-2026-10-31-ip/` (configuration.yaml, database.db, coordinator_backup.json).
+- Terugdraaien: `pct set <id> -net0 ...,ip=dhcp` (of de reservekopie terugzetten) en herstarten; stick weer op DHCP en het oude `serial.port` uit de reservekopie.
+- **Home Assistant (101) houdt .184 (DHCP)**: overgeslagen op verzoek van de eigenaar. Nog te doen: in de router nakijken of .184 een vaste reservering heeft.
+- Let op: de Zigbee2MQTT-webpagina staat nu op http://192.168.1.206:8080 (oude bladwijzers aanpassen).

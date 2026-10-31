@@ -24,12 +24,12 @@ Laatst bijgewerkt: 2026-10-31
 
 | ID | Naam | Soort | IP | Kernen | Geheugen | Schijf | Start automatisch |
 |---|---|---|---|---|---|---|---|
-| 101 | home-assistant | VM (Home Assistant OS) | 192.168.1.184 (DHCP) | 2 | 6 GB | 32 GB | ja |
-| 100 | zigbee2mqtt | LXC (Debian) | 192.168.1.58 (DHCP) | 2 | 1 GB | 8 GB (30% vol) | ja |
+| 101 | home-assistant | VM (Home Assistant OS) | 192.168.1.184 (DHCP; vast zetten overgeslagen, zie notities) | 2 | 6 GB | 32 GB | ja |
+| 100 | zigbee2mqtt | LXC (Debian) | **192.168.1.206 (vast)** | 2 | 1 GB | 8 GB (30% vol) | ja |
 | 202 | servarr | LXC (Ubuntu 22.04 + Docker, privileged, videochip doorgegeven) | 192.168.1.202 (vast) | 6 | 2 GB | 24 GB | ja |
-| 103 | tailscale | LXC (Debian 12, unprivileged, `/dev/net/tun`) | 192.168.1.170 (DHCP), Tailscale 100.90.115.11 | 1 | 256 MB | 2 GB | ja |
+| 103 | tailscale | LXC (Debian 12, unprivileged, `/dev/net/tun`) | **192.168.1.204 (vast)**, Tailscale 100.90.115.11 | 1 | 256 MB | 2 GB | ja |
 | 105 | samba | LXC (Debian 12, unprivileged, map `/mnt/nvme1n1/bestanden` → `/srv/bestanden`) | **192.168.1.203 (vast)** | 1 | 256 MB | 2 GB | ja |
-| 104 | vaultwarden | LXC (Debian 12 + Docker, unprivileged, eigen Tailscale) | 192.168.1.158 (DHCP), Tailscale 100.86.0.87 | 1 | 512 MB | 4 GB | ja |
+| 104 | vaultwarden | LXC (Debian 12 + Docker, unprivileged, eigen Tailscale) | **192.168.1.205 (vast)**, Tailscale 100.86.0.87 | 1 | 512 MB | 4 GB | ja |
 
 ## Diensten
 
@@ -37,7 +37,7 @@ Laatst bijgewerkt: 2026-10-31
 |---|---|---|---|---|
 | Home Assistant | slim huis | http://192.168.1.184:8123 | VM 101 | in de VM |
 | Zigbee2MQTT | Zigbee-apparaten (Hue-lampen) | in LXC 100 | LXC 100 | `/opt/zigbee2mqtt/data` |
-| Zigbee-stick | coördinator via netwerk (zstack) | tcp://192.168.1.165:6638 | los apparaat | - |
+| Zigbee-stick | coördinator via netwerk (zstack) | tcp://192.168.1.208:6638 (vast, ingesteld op de stick; webpagina http://192.168.1.208) | los apparaat (SLZB-06) | - |
 | Mosquitto | MQTT-berichten tussen Zigbee2MQTT en HA | in LXC 100 | LXC 100 | - |
 | Plex | films/series kijken | http://192.168.1.202:32400/web | LXC 202 (Docker, host-netwerk) | `diensten/plex/docker-compose.yml` |
 | Radarr | films zoeken | http://192.168.1.202:7878 | LXC 202 (Docker) | `diensten/servarr/docker-compose.yml` |
