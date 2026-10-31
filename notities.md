@@ -150,3 +150,14 @@
 - Eerste run: 6 bestanden, 7,6 GB, alles "gecontroleerd: OK". Duurde 38 minuten via wifi (~3,5 MB/s); met een kabel gaat het sneller.
 - Let op: de SSD is niet versleuteld (de back-ups bevatten API-sleutels en de MQTT-wachtwoorden; de Vaultwarden-kluis zelf is wel versleuteld). Neem de SSD af en toe mee buiten huis.
 - Nog te doen: de Samba-map `bestanden` meenemen, en het script regelmatig laten draaien.
+
+## 2026-10-31: Samba (gedeelde map)
+
+- Router-DHCP deelt .2 t/m .200 uit; **.201–.254 zijn voor vaste adressen** (Proxmox .201, servarr .202, samba .203).
+- Map op de host: `/mnt/nvme1n1/bestanden` (eigenaar 101000:101000 = uid 1000 in de unprivileged container).
+- Nieuwe LXC **105 "samba"**: Debian 12, unprivileged, 1 kern, 256 MB, 2 GB, `mp0` naar `/srv/bestanden`, vast IP **192.168.1.203** (reservekopie van de oude config: `/root/lxc-105.conf.bak-2026-10-31` op de host).
+- Samba 4.17 met `diensten/samba/smb.conf`: share "Bestanden", alleen gebruiker `floriano`, minimaal SMB3, geen gasttoegang, nmbd uit. Het wachtwoord staat in `.env` (`SMB_PASSWORD`).
+- Getest: inloggen, schrijven en verwijderen werken; anoniem wordt geweigerd (`NT_STATUS_ACCESS_DENIED`); poort 445 is bereikbaar vanaf de laptop.
+- Koppelen: Windows → `\192.168.1.203\Bestanden` als S:. iPhone (Bestanden) → `smb://192.168.1.203`. S24 (Mijn bestanden → Netwerkopslag → SMB).
+- Ontdekt: de Windows-laptop stuurt thuisverkeer naar 192.168.1.x **via Tailscale** (subnetroutes geaccepteerd), dus via de kleine LXC 103. Dat kan de lage snelheid van de SSD-back-up verklaren (~3,5 MB/s).
+- Nog te doen: de map `bestanden` meenemen in de SSD-back-up.
